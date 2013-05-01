@@ -50,7 +50,7 @@ nnoremap k gk
 nnoremap ; :
 au FocusLost * :wa
 inoremap jk <ESC>
-colors zenburn
+colors molokai 
 set t_Co=256
 
 set autoindent     " always set autoindenting on
@@ -69,3 +69,14 @@ map <C-H> <C-W><Left>
 map <C-L> <C-W><Right>
 map <C-J> <C-W><Down>
 map <C-K> <C-W><Up>
+
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
+
+nnoremap <C-n> :call NumberToggle()<cr>
+

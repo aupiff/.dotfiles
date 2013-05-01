@@ -1,3 +1,3 @@
-_dotfiles_
+__dotfiles__
 
 config à la roy
