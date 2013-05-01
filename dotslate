@@ -1,0 +1,72 @@
+# Configs
+config defaultToCurrentScreen true
+config nudgePercentOf screenSize
+config resizePercentOf screenSize
+config secondsBetweenRepeat 0.1
+config checkDefaultsOnLoad true
+config focusCheckWidthMax 3000
+config windowHintsShowIcons true
+config windowHintsIgnoreHiddenWindows false
+#config windowHintsDuration 5
+config windowHintsSpread true
+#config windowHintsOrder persist
+ 
+# Monitor Aliases
+alias mon-laptop      0
+alias mon-cinema      1
+ 
+# Misc Aliases
+alias showHintsLeftHand hint AOEUIYQJKX
+alias showNormalHint hint AOEUIDHTNSYXFBPKGMCW
+alias browser   'Google Chrome'
+alias term      'Terminal' 
+alias music     'Spotify'
+alias mail      'Sparrow'
+alias notes     'iA Writer'
+alias keyboard  'Keyboard Viewer'
+alias chat      'Messages'
+alias hyper f8
+
+# Abstract positions
+alias full          move screenOriginX;screenOriginY                  screenSizeX;screenSizeY
+alias lefthalf      move screenOriginX;screenOriginY                  screenSizeX/2;screenSizeY
+alias righthalf     move screenOriginX+screenSizeX/2;screenOriginY    screenSizeX/2;screenSizeY
+alias rightmost     move screenOriginX+screenSizeX*0.4;screenOriginY  screenSizeX*0.6;screenSizeY
+alias rightless     move screenOriginX+screenSizeX*0.6;screenOriginY  screenSizeX*0.4;screenSizeY
+alias leftmost      move screenOriginX;screenOriginY                  screenSizeX*0.6;screenSizeY
+alias leftless      move screenOriginX;screenOriginY                  screenSizeX*0.4;screenSizeY
+
+# Concrete positions
+alias 1-full        move screenOriginX;screenOriginY screenSizeX;screenSizeY         ${mon-laptop}
+alias 1-left        move screenOriginX;screenOriginY screenSizeX/2;screenSizeY         ${mon-laptop}
+alias 1-right       move screenOriginX+screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY         ${mon-laptop}
+alias 2-full        move screenOriginX;screenOriginY screenSizeX;screenSizeY         ${mon-cinema}
+alias 2-left        move screenOriginX;screenOriginY screenSizeX/2;screenSizeY         ${mon-cinema}
+alias 2-right       move screenOriginX+screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY         ${mon-cinema}
+alias 2-righttop    move screenOriginX+screenSizeX/2;screenOriginY screenSizeX/2;screenSizeY/2       ${mon-cinema}
+alias 2-rightbottom move screenOriginX+screenSizeX/2;screenOriginY+screenSizeY/2    screenSizeX/2;screenSizeY/2       ${mon-cinema}
+
+# Location bindings
+bind q:${hyper} ${lefthalf}
+bind w:${hyper} ${full}
+bind e:${hyper} ${righthalf}
+bind r:${hyper} throw next
+
+# Focus Bindings
+bind a:${hyper} focus right
+bind s:${hyper} focus left
+bind d:${hyper} focus up
+bind j:${hyper} focus down
+
+bind c:${hyper} hide current
+
+# Application Specific
+bind 1:${hyper} focus ${term}
+bind 2:${hyper} focus ${browser}
+bind 3:${hyper} focus ${mail}
+bind 4:${hyper} focus ${music}
+bind 5:${hyper} focus ${chat}
+bind 6:${hyper} focus ${notes}
+
+# Window Hints
+bind e:cmd hint

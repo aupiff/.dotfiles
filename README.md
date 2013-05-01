@@ -1,3 +1,3 @@
-#dotfiles
+_dotfiles_
 
-need to add my xmonad config
+config à la roy
