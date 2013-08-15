@@ -50,12 +50,12 @@ nnoremap k gk
 nnoremap ; :
 au FocusLost * :wa
 inoremap jk <ESC>
-colors molokai 
+colors desert
 set t_Co=256
 
 set autoindent     " always set autoindenting on
 set smartindent
-set cindent 
+set cindent
 
 "stop mutt from indenting each paragraph
 au FileType mail set noautoindent
@@ -80,3 +80,4 @@ endfunc
 
 nnoremap <C-n> :call NumberToggle()<cr>
 
+match ErrorMsg '\s\+$'
