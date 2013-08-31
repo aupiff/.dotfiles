@@ -26,9 +26,6 @@ set ruler
 set backspace=indent,eol,start
 set laststatus=2
 
-" I don't really use this, but I should see if it would be good
-" let mapleader = ","
-
 "searching and moving settings
 set ignorecase
 set smartcase
@@ -50,7 +47,8 @@ nnoremap k gk
 nnoremap ; :
 au FocusLost * :wa
 inoremap jk <ESC>
-colors desert
+colorscheme solarized
+set background=dark
 set t_Co=256
 
 set autoindent     " always set autoindenting on
@@ -70,14 +68,23 @@ map <C-L> <C-W><Right>
 map <C-J> <C-W><Down>
 map <C-K> <C-W><Up>
 
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set number
-  else
-    set relativenumber
-  endif
-endfunc
+set listchars=eol:↓,tab:→\ ,trail:↤,extends:>,precedes:<
+set list
 
-nnoremap <C-n> :call NumberToggle()<cr>
+execute pathogen#infect()
 
-match ErrorMsg '\s\+$'
+"to disable folding which is default with plasticboy/vim-markdown
+let g:vim_markdown_folding_disabled=1
+
+"use with syntastic
+"
+"haskell
+let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
+let g:hdevtools_options = '-g -Wall'
+
+"python
+let g:syntastic_python_checkers=['pylint']
+"every module-level variable is interpreted as a constant for some reason
+"the line below just make pylint not yell at me if a normal variables isn't
+"in all caps like a 'constant' ought to be
+let g:syntastic_python_checker_args = "--disable-msg=C0103"
