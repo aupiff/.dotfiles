@@ -1,3 +1,3 @@
 __dotfiles__
 
-config à la roy
+config _à la_ roy
