@@ -10,6 +10,18 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 
+" Set the proper tab / whitespace handling for a given programming language
+if has("autocmd")
+  " enable file type search
+  filetype plugin on
+  " use filetype indent
+  filetype indent on
+    " Consistent with the Linux Kernel Coding Style Guidelines
+    autocmd FileType c,cpp,cl set noexpandtab tabstop=8 shiftwidth=8 textwidth=78
+    autocmd FileType css,sass,html  set noexpandtab tabstop=8 shiftwidth=8 textwidth=78
+    autocmd FileType python,lua set expandtab tabstop=4 shiftwidth=4 softtabstop=4 textwidth=79
+endif
+
 "general settings
 syntax on
 set nu
@@ -60,13 +72,16 @@ au FileType mail set noautoindent
 au FileType mail set nosmartindent
 au FileType mail set nocindent
 au FileType mail set indentexpr=
-au FileType mail filetype indent off
+"au FileType mail filetype indent off
 
 "window navigation
 map <C-H> <C-W><Left>
 map <C-L> <C-W><Right>
 map <C-J> <C-W><Down>
 map <C-K> <C-W><Up>
+
+"spacebar in insert mode inserts a single character
+:nmap <Space> i_<Esc>r
 
 set listchars=eol:↓,tab:→\ ,trail:↤,extends:>,precedes:<
 set list
@@ -80,7 +95,7 @@ let g:vim_markdown_folding_disabled=1
 "
 "haskell
 let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
-let g:hdevtools_options = '-g -Wall'
+let g:hdevtools_options = '-g -Wall -g-isrc'
 
 "python
 let g:syntastic_python_checkers=['pylint']

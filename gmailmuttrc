@@ -1,9 +1,9 @@
-# aupif's muttrc 
+# aupiff's muttrc
 
 # gmail account info
 set imap_user = "riblankman@gmail.com"
 set smtp_url = "smtp://riblankman@smtp.gmail.com:587/"
-set from = "riblankman@gmail.com" 
+set from = "riblankman@gmail.com"
 set realname = "roy blankman"
 
 # Basic config, you can leave this as is
@@ -52,6 +52,7 @@ set sort_aux=date-received
 set include                             #include the message in replies
 set alias_file=~/.mutt/aliases          #keep aliases in this file
 source ~/.mutt/aliases
+source /etc/Muttrc.gpg.dist
 
 # Change the following line to a different editor you prefer.
 set editor = "vim"
