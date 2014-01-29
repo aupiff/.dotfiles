@@ -1,0 +1,9 @@
+#!/bin/bash
+cat <<EOF
+SF..........`TZ="America/Los_Angeles" date +%H:%M`
+NYC.........`TZ="America/New_York" date +%H:%M`
+UTC.........`TZ="Europe/Reijkjavik" date +%H:%M`
+Kiev........`TZ="Europe/Kiev" date +%H:%M`
+Beijing.....`TZ="Asia/Shanghai" date +%H:%M`
+Sydney......`TZ="Australia/Sydney" date +%H:%M`
+EOF

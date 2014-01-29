@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sudo ip link set wlp2s0 up
+sudo wpa_supplicant -B -i wlp2s0 -c $1
+sudo dhcpcd -A wlp2s0
