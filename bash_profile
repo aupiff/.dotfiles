@@ -8,8 +8,8 @@ PATH=/Users/aupiff/.cabal/bin:$PATH
 
 PATH=/usr/local/carlson-minot/crosscompilers/bin:$PATH
 
-export PATH=~/bin/:$PATH
-export PS1="\W > "
+export PATH=~/.dotfiles/:$PATH
+export PS1="\W $ "
 export TERM=screen-256color
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
