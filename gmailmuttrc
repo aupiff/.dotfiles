@@ -1,38 +1,50 @@
 # aupiff's muttrc
 
 # gmail account info
-set imap_user = "riblankman@gmail.com"
-set smtp_url = "smtp://riblankman@smtp.gmail.com:587/"
-set from = "riblankman@gmail.com"
-set realname = "roy blankman"
+set imap_user   = "riblankman@gmail.com"
+set smtp_url    = "smtp://riblankman@smtp.gmail.com:587/"
+set from        = "riblankman@gmail.com"
+set realname    = "roy blankman"
+
+# get passwords from gpg-encrypted passwords file
+source "gpg -d ~/.mutt/passwords.gpg |"
 
 # Basic config, you can leave this as is
-set folder = "imaps://imap.gmail.com:993"
-set spoolfile = "+INBOX"
+set folder      = "imaps://imap.gmail.com:993"
+set spoolfile   = "+INBOX"
+mailboxes       = "+INBOX"
+set hostname    = gmail.com
+# How often to check for new mail (time in seconds).
+set mail_check  = 120
+set timeout     = 300
+# Allow Mutt to open new imap connection automatically.
 set imap_check_subscribed
-set hostname = gmail.com
-set mail_check = 120
-set timeout = 300
-set imap_keepalive = 300
-set postponed = "+[GMail]/Drafts"
-set record = "+[GMail]/Sent Mail"
-set header_cache=~/.mutt/cache/headers
-set message_cachedir=~/.mutt/cache/bodies
-set certificate_file=~/.mutt/certificates
-set move = no
+unset imap_passive
+
+# Keep IMAP connection alive by polling intermittently (time in seconds).
+set imap_keepalive  = 300
+#commenting this out since gmail saves this anyway
+set copy                = no
+#set record              = "+[Gmail]/Sent Mail"
+set postpone            = yes
+set postponed           = "+[Gmail]/Drafts"
+set header_cache        = ~/.mutt/cache/headers
+set message_cachedir    = ~/.mutt/cache/bodies
+set certificate_file    =~/.mutt/certificates
+set move            = no
 set include
-set sort = 'threads'
-set sort_aux = 'reverse-last-date-received'
-set auto_tag = yes
+set sort            = 'threads'
+set sort_aux        = 'reverse-last-date-received'
+set auto_tag        = yes
 ignore "Authentication-Results:"
 ignore "DomainKey-Signature:"
 ignore "DKIM-Signature:"
 hdr_order Date From To Cc
 alternative_order text/plain text/html *
 auto_view text/html
-bind editor <Tab> complete-query
-bind editor ^T complete
-bind editor <space> noop 
+#bind editor <Tab> complete-query
+#bind editor ^T complete
+bind editor <space> noop
 
 # Gmail-style keyboard shortcuts
 macro index,pager y "<enter-command>unset trash\n <delete-message>" "Gmail archive message"
@@ -42,26 +54,37 @@ macro index,pager ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to all mail"
 macro index,pager gs "<change-folder>=[Gmail]/Starred<enter>" "Go to starred messages"
 macro index,pager gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to drafts"
 
-#useful settings
-set copy=yes
-set record=+Sent
-set postponed=+Drafts
-set postpone=yes
-set sort = reverse-threads
-set sort_aux=date-received
-set include                             #include the message in replies
-set alias_file=~/.mutt/aliases          #keep aliases in this file
-source ~/.mutt/aliases
+#gpg settings
 source /etc/Muttrc.gpg.dist
+set pgp_decode_command="gpg %?p?--passphrase-fd 0? --no-verbose --batch --output - %f"
+set pgp_verify_command="gpg --no-verbose --batch --output - --verify %s %f"
+set pgp_decrypt_command="gpg --passphrase-fd 0 --no-verbose --batch --output - %f"
+set pgp_sign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --detach-sign --textmode %?a?-u %a? %f"
+set pgp_clearsign_command="gpg --no-verbose --batch --output - --passphrase-fd 0 --armor --textmode --clearsign %?a?-u %a? %f"
+set pgp_encrypt_only_command="pgpewrap gpg --batch --quiet --no-verbose --output - --encrypt --textmode --armor --always-trust --encrypt-to 0xC9C40C31 -- -r %r -- %f"
+set pgp_encrypt_sign_command="pgpewrap gpg --passphrase-fd 0 --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust --encrypt-to 0xC9C40C31 -- -r %r -- %f"
+set pgp_import_command="gpg --no-verbose --import -v %f"
+set pgp_export_command="gpg --no-verbose --export --armor %r"
+set pgp_verify_key_command="gpg --no-verbose --batch --fingerprint --check-sigs %r"
+set pgp_list_pubring_command="gpg --no-verbose --batch --with-colons --list-keys %r"
+set pgp_list_secring_command="gpg --no-verbose --batch --with-colons --list-secret-keys %r"
+set pgp_autosign=yes
+set pgp_sign_as=0x8F7863FD
+set pgp_replyencrypt=yes
+set pgp_timeout=1800
+set pgp_good_sign="^gpg: Good signature from"
 
+#alias settings
+set alias_file= ~/.mutt/aliases
+set sort_alias= alias
+set reverse_alias=yes
+source $alias_file
 # Change the following line to a different editor you prefer.
 set editor = "vim"
-
 # making aspell be the default spell-checker
 set ispell = 'aspell --mode=email --email-margin=0 --run-together --check'
-
 #don't ask to recall messages when composing a new message
-set recall=no
+set recall = no
 
 #making things vim-like
 bind pager "G" bottom
