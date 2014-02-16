@@ -1,9 +1,93 @@
 #!/bin/bash
-cat <<EOF
-SF..........`TZ="America/Los_Angeles" date +%H:%M`
-NYC.........`TZ="America/New_York" date +%H:%M`
-UTC.........`TZ="Europe/Reijkjavik" date +%H:%M`
-Kiev........`TZ="Europe/Kiev" date +%H:%M`
-Beijing.....`TZ="Asia/Shanghai" date +%H:%M`
-Sydney......`TZ="Australia/Sydney" date +%H:%M`
+PADLENGTH=50
+cmd=$1
+usage() {
+	cat 1>&2 <<EOF
+Usage:
+	$0 <cmd>
+
+	cmds: (l)ist, (c)onvert <time>
+
+Examples:
+
+List times:
+	`examples`
 EOF
+}
+
+examples() {
+	cat <<EOF
+	wt c "America/Los_Angeles" 19:00 this Mon
+	wt c "Asia/Shanghai" 2100 next Tuesday
+EOF
+}
+
+padstring() {
+	padleft=$1
+	padwith=$2
+	padright=$3
+	pad=$(printf '%0.1s' "$padwith"{1..60})
+	padlength=$PADLENGTH
+	printf '%s' "$padleft"
+	printf '%*.*s' 0 $((padlength - ${#padleft} - ${#padright} )) "$pad"
+	printf '%s\n' "$padright"
+}
+
+# Define a heredoc usage: define VAR <<HERE ...
+define() { IFS='\n' read -r -d '' ${1} || true; }
+list_timezones() {
+	define TIMEZONES <<EOF
+Honolulu,Pacific/Honolulu
+SF,America/Los_Angeles
+NYC,America/New_York
+UTC,Europe/Reijkjavik
+London,Europe/London
+Kiev,Europe/Kiev
+Beijing,Asia/Shanghai
+Tokyo,Asia/Tokyo
+Sydney,Australia/Sydney
+EOF
+	IFS='
+'
+	for short_tz in $(echo "$TIMEZONES")
+	do
+		short=$(echo "$short_tz" | awk -F, '{ print $1 }')
+		long=$(echo "$short_tz" | awk -F, '{ print $2 }')
+		time=$(TZ=$long date +%H:%M)
+		padstring "$short ($long)" \. "$time"
+	done
+}
+
+convert_timezones() {
+	timezone=$1
+	shift
+	time_in=$*
+	yourtimezone=$(date +%Z)
+	time_cmd="TZ=\"$timezone\" $time_in"
+	yourtime=$(date 2> /dev/null --date="$time_cmd")
+	if ! [ "$?" == "0" ]
+	then
+		echo 1>&2 "Oops. That was an invalid command. Try one of these:"
+		examples
+		exit 1
+	fi;
+	echo $yourtime
+}
+
+case "$cmd" in
+	c|clear)
+		shift
+		convert_timezones $*
+		;;
+	l|list)
+		list_timezones
+		;;
+	h|help)
+		usage
+		exit 0
+		;;
+	*)
+		list_timezones
+		;;
+esac
+
