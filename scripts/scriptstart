@@ -1,0 +1,36 @@
+#!/bin/bash
+#
+# Create a header file for a script
+#
+# Usage: scriptstart <comment_char> <name>
+#
+# commend char
+if [[ $1 ]]; then
+    COM=$1
+else
+    COM='//'
+fi
+SCRIPTDIR=`dirname $0`
+DATEYEAR=`date +%Y`
+CREATION=`date "+%Y-%m-%d %H:%M:%S %z"`
+if [[ $2 ]]; then
+    FILETEXT="$2"
+else
+    FILETEXT=""
+fi;
+source $SCRIPTDIR/script_env
+
+function pheadEcho {
+    cat <<EOF
+$COM
+$COM    $FILETEXT
+$COM    =========
+$COM
+$COM    :created: $CREATION
+$COM    :copyright: (c) $DATEYEAR, $ENTITY
+$COM    :license: $LICENSE_DESC
+$COM
+EOF
+}
+
+pheadEcho

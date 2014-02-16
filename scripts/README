@@ -1,0 +1,50 @@
+## Scripts
+
+batt
+	displays battery
+
+count_cores.sh
+	number of cores
+
+cx
+	chmod +x
+
+isodate
+	Date in ISO 8601 format
+pcb
+	echo `xclip -o`
+
+pick
+	Picks arguments to print to stdout Copy all chosen scripts to this dir:
+```sh
+	cp `pick ~/public_scripts/*`
+```
+
+ppp
+	`ppp <branch>` will push to this current branch and open a pull request
+	to <branch>
+
+pystart
+	Generates a header for a new python file.
+
+script_env
+	Used by pystart and scriptstart for variables
+
+scriptstart
+	Generates a header for an arbitrary language.
+
+tmux_shared.sh
+	Used to help with creating tmux shared sessions.
+
+vns
+	Used to switch to a virtual environment with a provided config
+	argument.
+wf
+	Used to connect to a wifi hotspot
+
+wt
+	World Time
+
+zipfiles
+	Zips the columns of two files together.
+

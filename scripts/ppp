@@ -1,0 +1,38 @@
+#!/bin/bash
+# Pushes last commit on current branch, opens pull request on github
+#
+# Stephen A. Balaban <s@lambdal.com>
+#
+# Requires hub: 
+#
+#	`brew install hub`
+#
+
+HEAD=`git rev-parse --abbrev-ref HEAD`
+DEFAULT_BASE=develop
+REPO=`git remote -v | grep -o :.*\.git | sed 's/://' | sed 's/\.git//' | tail -n1`
+LASTSHORTLOG=$(git shortlog -n1 | tail -n2)
+
+function pushFeat {
+    BASE="$1"
+    MESSAGE="$2"
+    git push origin $HEAD
+    echo "# Pushing to $HEAD. Creating pull request to $REPO/$BASE"
+    hub pull-request "$MESSAGE" -b $REPO:$BASE -h $REPO:$HEAD
+    echo DONE
+}
+
+if [ "$1" == "--help" -o "$1" == "help" -o "$1" == "-h" ]; then
+    echo "usage ./`basename $0` [BASE] [MESSAGE]"
+    exit 0;
+fi;
+
+if [[ -n "$1" && -n "$2" ]]; then
+	pushFeat $1 $2
+else
+	base=$DEFAULT_BASE
+	if [[ $1 ]]; then
+		base=$1;
+	fi;
+	pushFeat $base "$LASTSHORTLOG"
+fi;

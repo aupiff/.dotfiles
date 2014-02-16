@@ -1,0 +1,10 @@
+#!/bin/bash
+for i
+do
+	echo -e "$i? \c" 1>&2
+	read answer
+	if [ "$answer" == "y" ]; then
+		echo $i
+	fi;
+done;
+

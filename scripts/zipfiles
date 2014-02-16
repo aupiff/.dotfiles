@@ -1,0 +1,12 @@
+#!/bin/sh
+
+#
+#    zipfiles
+#    =========
+#    zip two columns into one file
+#    :created: 2014-01-13 20:49:23 +0800
+#    :copyright: (c) 2014, Lambda Labs, Inc.
+#    :license: All Rights Reserved.
+#
+if [ "$#" != "2" ]; then echo "zipfiles file_a file_b"; exit 1; fi
+paste -d '  ' $1 $2
