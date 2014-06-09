@@ -10,16 +10,20 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 
+"highlighting lines over 80 chars
+:match ErrorMsg '\%>80v.\+'
+
 " Set the proper tab / whitespace handling for a given programming language
 if has("autocmd")
-  " enable file type search
-  filetype plugin on
-  " use filetype indent
-  filetype indent on
+    " enable file type search
+    filetype plugin on
+    " use filetype indent
+    filetype indent on
     " Consistent with the Linux Kernel Coding Style Guidelines
-    autocmd FileType c,cpp,cl set noexpandtab tabstop=8 shiftwidth=8 textwidth=78
+    autocmd FileType c,cpp,opencl set noexpandtab tabstop=8 shiftwidth=8 textwidth=78
     autocmd FileType css,sass,html  set noexpandtab tabstop=8 shiftwidth=8 textwidth=78
     autocmd FileType python,lua set expandtab tabstop=4 shiftwidth=4 softtabstop=4 textwidth=79
+    autocmd FileType jade set expandtab tabstop=2 shiftwidth=2 softtabstop=2 textwidth=79
 endif
 
 "general settings
@@ -92,14 +96,13 @@ execute pathogen#infect()
 let g:vim_markdown_folding_disabled=1
 
 "use with syntastic
-"
+
+"scala
+let g:syntastic_disabled_filetypes=['scala']
+
 "haskell
 let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
 let g:hdevtools_options = '-g -Wall -g-isrc'
 
 "python
-let g:syntastic_python_checkers=['pylint']
-"every module-level variable is interpreted as a constant for some reason
-"the line below just make pylint not yell at me if a normal variables isn't
-"in all caps like a 'constant' ought to be
-let g:syntastic_python_checker_args = "--disable-msg=C0103"
+let g:syntastic_python_checkers=['flake8']
