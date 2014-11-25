@@ -11,7 +11,7 @@ set softtabstop=4
 set expandtab
 
 "highlighting lines over 80 chars
-:match ErrorMsg '\%>80v.\+'
+":match ErrorMsg '\%>80v.\+'
 
 " Set the proper tab / whitespace handling for a given programming language
 if has("autocmd")
@@ -48,6 +48,7 @@ set smartcase
 set incsearch
 set showmatch
 set hlsearch
+set wrapscan
 nnoremap <leader><space> :noh<cr>
 nnoremap <tab> %
 vnoremap <tab> %
@@ -63,9 +64,12 @@ nnoremap k gk
 nnoremap ; :
 au FocusLost * :wa
 inoremap jk <ESC>
-colorscheme solarized
+
+" Solarized
+syntax on
 set background=dark
-set t_Co=256
+"let g:solarized_termcolors = 256
+colorscheme solarized
 
 set autoindent     " always set autoindenting on
 set smartindent
@@ -92,8 +96,14 @@ set list
 
 execute pathogen#infect()
 
+"nerdtree shortcut
+:nmap <c-k><c-b> :NERDTreeToggle<CR>
+
 "to disable folding which is default with plasticboy/vim-markdown
 let g:vim_markdown_folding_disabled=1
+
+"ctags-related
+set tags=./.tags,.tags,./tags,tags
 
 "use with syntastic
 
