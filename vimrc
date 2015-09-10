@@ -49,9 +49,6 @@ set incsearch
 set showmatch
 set hlsearch
 set wrapscan
-nnoremap <leader><space> :noh<cr>
-nnoremap <tab> %
-vnoremap <tab> %
 
 set wrap
 set textwidth=79
