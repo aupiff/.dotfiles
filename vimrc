@@ -20,10 +20,9 @@ if has("autocmd")
     " use filetype indent
     filetype indent on
     " Consistent with the Linux Kernel Coding Style Guidelines
-    autocmd FileType c,cpp,opencl set noexpandtab tabstop=8 shiftwidth=8 textwidth=78
-    autocmd FileType css,sass,html  set noexpandtab tabstop=8 shiftwidth=8 textwidth=78
+    autocmd FileType c,cpp,opencl set expandtab tabstop=4 shiftwidth=4 textwidth=80
     autocmd FileType python,lua set expandtab tabstop=4 shiftwidth=4 softtabstop=4 textwidth=79
-    autocmd FileType jade set expandtab tabstop=2 shiftwidth=2 softtabstop=2 textwidth=79
+    autocmd FileType jade,css,sass,html set expandtab tabstop=2 shiftwidth=2 softtabstop=2 textwidth=79
 endif
 
 "general settings
@@ -58,7 +57,6 @@ set formatoptions=qrn1
 nnoremap j gj
 nnoremap k gk
 
-nnoremap ; :
 au FocusLost * :wa
 inoremap jk <ESC>
 
@@ -77,6 +75,7 @@ au FileType mail set noautoindent
 au FileType mail set nosmartindent
 au FileType mail set nocindent
 au FileType mail set indentexpr=
+au FileType mail setlocal fo+=aw
 "au FileType mail filetype indent off
 
 "window navigation
@@ -103,13 +102,6 @@ let g:vim_markdown_folding_disabled=1
 set tags=./.tags,.tags,./tags,tags
 
 "use with syntastic
-
-"scala
-let g:syntastic_disabled_filetypes=['scala']
-
-"haskell
-let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
-let g:hdevtools_options = '-g -Wall -g-isrc'
 
 "python
 let g:syntastic_python_checkers=['flake8']
