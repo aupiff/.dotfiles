@@ -1,3 +1,0 @@
-#!/bin/bash
-BAT=/sys/class/power_supply/BAT0/
-echo $(echo "$(cat ${BAT}/charge_now) / $(cat ${BAT}/charge_full)" | bc -l)

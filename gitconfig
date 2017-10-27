@@ -1,15 +1,16 @@
 [user]
-	name = Roy Blankman
-	email = riblankman@gmail.com
+    name = Roy Blankman
+    email = riblankman@gmail.com
 [core]
-	editor = vim
+    editor = vim
+    excludesfile = ~/.gitignore
 [push]
-	default = simple
+    default = simple
 [alias]
-	co = checkout
-	br = branch
-	ci = commit
-	st = status
-	unstage = reset HEAD --
-	last = log -1 HEAD
+    co = checkout
+    br = branch
+    ci = commit
+    st = status
+    unstage = reset HEAD --
+    last = log -1 HEAD
     pg = log --all --graph

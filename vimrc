@@ -10,9 +10,6 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab
 
-"highlighting lines over 80 chars
-":match ErrorMsg '\%>80v.\+'
-
 " Set the proper tab / whitespace handling for a given programming language
 if has("autocmd")
     " enable file type search
@@ -101,10 +98,18 @@ let g:vim_markdown_folding_disabled=1
 "ctags-related
 set tags=./.tags,.tags,./tags,tags
 
-"use with syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 "python
 let g:syntastic_python_checkers=['flake8']
+
+"haskell
+let g:syntastic_haskell_checkers = ['hlint']
+let g:syntastic_hs_checkers=['ghc-mod', 'hlint']
+
 
 " tagbar
 nmap <F8> :TagbarToggle<CR>
@@ -112,8 +117,6 @@ let g:tagbar_left=1
 let g:tagbar_sort=0
 let g:tagbar_width=25
 set updatetime=500
-" open tagbar automatically
-autocmd VimEnter * nested :call tagbar#autoopen(1)
 
 let g:tagbar_type_haskell = {
     \ 'ctagsbin'  : 'hasktags',
@@ -146,3 +149,6 @@ let g:tagbar_type_haskell = {
         \ 'type'   : 't'
     \ }
 \ }
+
+"ctrlp
+set runtimepath^=~/.vim/bundle/ctrlp.vim

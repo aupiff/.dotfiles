@@ -1,22 +1,30 @@
-# MacPorts Installer addition on 2012-11-19_at_15:07:13: adding an appropriate PATH variable for use with MacPorts.
-PATH=/opt/local/bin:/opt/local/sbin:$PATH
-# Finished adapting your PATH environment variable for use with MacPorts.
+PATH="/Users/aupiff/3-tools/stack:$PATH"
+PATH="/Users/aupiff/bin:$PATH"
+PATH="/Users/aupiff/.local/bin:$PATH"
+PATH="/Users/aupiff/3-tools/mutable_node_modules/bin:$PATH"
 
-#this is the default cabal install path as far as I know
-PATH=/Users/aupiff/.cabal/bin:$PATH
-#PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin:$PATH
+function color_my_prompt {
+    local __user_and_host="\[\033[01;32m\]\u@\h"
+    local __cur_location="\[\033[01;34m\]\w"
+    local __git_branch_color="\[\033[31m\]"
+    local __git_branch='`git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`'
+    local __prompt_tail="\[\033[35m\]λ"
+    local __last_color="\[\033[00m\]"
+    export PS1="$__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color\n"
+}
+color_my_prompt
 
-PATH=/usr/local/carlson-minot/crosscompilers/bin:$PATH
+eval "$(stack --bash-completion-script "$(which stack)")"
 
-export PATH=~/.dotfiles/:$PATH
-export PS1="\W $ "
-export TERM=screen-256color
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-alias gpg='gpg2'
-alias grep='grep --color=auto'
+export PATH="/usr/local/sbin:$PATH"
+if [ -e /Users/aupiff/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/aupiff/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
-export PYTHONPATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/:$PYTHONPATH
-PYTHON_INCLUDE_DIR=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7
-PYTHON_LIBRARY=/opt/local/lib/libpython2.7.dylib
-#export PYTHONPATH=/usr/local/lib/python2.7/site-packages/
+export PATH="$HOME/.cargo/bin:$PATH"
+export LEDGER_FILE=~/4-ledger/2017.journal
+
+alias grep="grep -i --color=auto"
+alias ghc="stack ghc"
+
+# OPAM configuration
+. /Users/aupiff/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true

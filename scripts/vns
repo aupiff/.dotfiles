@@ -1,2 +1,0 @@
-#!/bin/sh
-echo "source /home/rib/3-tools/venvault/$1/bin/activate"
